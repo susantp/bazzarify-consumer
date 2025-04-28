@@ -18,6 +18,6 @@ FROM base
 COPY --from=build /app/.next /app/.next
 COPY --from=build /app/.next/static /app/.next/standalone/.next/static
 COPY --from=base /app/public /app/.next/standalone/public
-USER bun
+#USER bun
 EXPOSE 3000/tcp
 CMD [ "bun", "run", ".next/standalone/server.js" ]

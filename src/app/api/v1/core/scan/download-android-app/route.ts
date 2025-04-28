@@ -1,5 +1,3 @@
-import * as process from "node:process";
-
 const apiUrl =
   process.env.API_URL || "http://local-ne.larashops.local:8081/api/v1";
 const appKey = process.env.APP_KEY || "";
