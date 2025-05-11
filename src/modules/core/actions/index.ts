@@ -23,6 +23,6 @@ export async function actionDeleteUser(
   // If everything is okay
   return {
     status: 200,
-    message: `Account associated with ${phone} deleted successfully.`,
+    message: `Account associated with ${phone} deletion process started.`,
   };
 }

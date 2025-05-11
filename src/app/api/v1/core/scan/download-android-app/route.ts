@@ -1,5 +1,5 @@
 const apiUrl =
-  process.env.API_URL || "http://local-ne.larashops.local:8081/api/v1";
+  process.env.API_URL || "http://local-ne.bazzarify.local:8081/api/v1";
 const appKey = process.env.APP_KEY || "";
 
 export async function GET() {

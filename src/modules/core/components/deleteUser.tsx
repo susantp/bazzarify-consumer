@@ -1,6 +1,6 @@
 "use client";
 
-import { actionDeleteUser } from "@/app/actions";
+import { actionDeleteUser } from "@/modules/core/actions";
 import { useActionState } from "react";
 
 export default function DeleteUser() {
@@ -8,7 +8,6 @@ export default function DeleteUser() {
     status: 0,
     message: "",
   });
-  console.log("state: ", state);
   return (
     <div className="flex w-full items-center justify-center h-screen bg-slate-200">
       <form

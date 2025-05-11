@@ -1,5 +1,5 @@
 "use client";
 
-import DeleteUser from "@/app/components/deleteUser";
+import DeleteUser from "@/modules/core/components/deleteUser";
 
 export default DeleteUser;
