@@ -25,9 +25,6 @@ jobs:
       - name: Build Next.js app
         run: bun run build
 
-      - name: List files and directories
-        run: ls -la
-
       - name: Login to dockerhub
         uses: docker/login-action@v3
         with:
