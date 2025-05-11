@@ -1,5 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+[![Build and push Docker image to dockerhub](https://github.com/susantp/bazzarify-consumer/actions/workflows/docker_image.yml/badge.svg)](https://github.com/susantp/bazzarify-consumer/actions/workflows/docker_image.yml)
 ## Getting Started
 
 First, run the development server:
