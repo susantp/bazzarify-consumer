@@ -2,7 +2,8 @@ import axios, { AxiosInstance, CreateAxiosDefaults } from "axios";
 
 const remoteData: Record<string, string> = {
   apiUrl:
-    process.env.API_URL || "http://local-ne.bazzarify.local/api/v1/consumers",
+    process.env.API_URL ||
+    "http://local-ne.bazzarify.local:8081/api/v1/consumers",
   appKey: process.env.EXPO_PUBLIC_APP_KEY || "",
 };
 const defaultConfig: CreateAxiosDefaults = {
