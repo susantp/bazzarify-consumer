@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 export async function GET() {
   try {
     const response = await axiosInstance.get("/home/getFlashDealProducts");
+    console.log(response, response.request);
     if (response.data?.metaData?.error) {
       throw new AxiosError(response.data.metaData);
     }
