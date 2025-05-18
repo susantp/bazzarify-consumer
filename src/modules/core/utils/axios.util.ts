@@ -3,7 +3,7 @@ const axiosDefaults: CreateAxiosDefaults = {
   headers: {
     "User-Agent": "BazzarifyConsumer",
     "Content-Type": "application/json",
-    "X-APP-Key": process.env.EXPO_PUBLIC_APP_KEY || "",
+    "X-APP-Key": process.env.X_APP_KEY || "",
   },
 };
 const baseURL =
