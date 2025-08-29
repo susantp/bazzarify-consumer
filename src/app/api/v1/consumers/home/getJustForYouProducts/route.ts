@@ -1,30 +1,29 @@
 import axiosInstance from "@/modules/core/utils/axios.util";
 import { AxiosError, AxiosResponse, isAxiosError } from "axios";
+import { z } from "zod";
+import { NextRequest } from "next/server";
 import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";
-import { FlashDealsPayloadSchema } from "@/modules/product/schemas/responsePayloads/FlashDealsPayloadSchema";
 import {
   handleError,
   handleSuccess,
 } from "@/modules/core/utils/jsonResponse.utils";
-import { NextRequest } from "next/server";
-import { z } from "zod";
 import { formattedIssues } from "@/modules/core/utils/zod.util";
+import { JustForYouProductsPayloadSchema } from "@/modules/product/schemas/responsePayloads/JustForYouProductsPayloadSchema";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const FlashDealQueryParams = z.object({
+const JustForYouProductsQueryParams = z.object({
   perPage: z.number().optional().describe("Page number"),
   limit: z.number().optional().describe("Results per page"),
   search: z.string().optional().describe("Search phrase"),
 });
-
 /**
- * GET Flash Deals Products
+ * GET JustForYou Products
  * @content-type application/json
- * @params FlashDealQueryParams
+ * @params JustForYouProductsQueryParams
  * @response IApiResponseSchema
  */
 export async function GET(request: NextRequest) {
-  const upstreamRequestPath = "/home/getFlashDealProducts";
+  const upstreamRequestPath = "/home/getJustForYouProducts";
   const requestUrl = new URL(request.url);
   const searchParams = requestUrl.searchParams;
   let upstream: AxiosResponse<unknown>;
@@ -42,7 +41,7 @@ export async function GET(request: NextRequest) {
     return handleError({ error: msg, errorCode: 500 });
   }
 
-  const parsed = ApiResponseSchema(FlashDealsPayloadSchema).safeParse(
+  const parsed = ApiResponseSchema(JustForYouProductsPayloadSchema).safeParse(
     upstream.data,
   );
 

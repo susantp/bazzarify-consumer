@@ -97,7 +97,7 @@
     }
   },
   "apiDir": "./src/app/api",
-  "schemaDir": "./src",
+  "schemaDir": "./src/modules/core/schemas",
   "schemaType": "zod",
   "docsUrl": "api-docs",
   "ui": "scalar",

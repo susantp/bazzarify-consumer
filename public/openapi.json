@@ -19,7 +19,116 @@
         "bearerFormat": "JWT"
       }
     },
-    "schemas": {},
+    "schemas": {
+      "FlashDealQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      },
+      "IApiResponseSchema": {},
+      "JustForYouProductsQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      },
+      "PopularProductsQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      },
+      "string": {},
+      "MetaDataSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "executionTime": {
+            "type": "number",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "TimeStampsSchema": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    },
     "responses": {
       "400": {
         "description": "Bad Request",
@@ -185,13 +294,52 @@
     "/v1/consumers/home/getFlashDealProducts": {
       "get": {
         "operationId": "get-v1-consumers-home-getFlashDealProducts",
-        "summary": "",
+        "summary": "GET Flash Deals Products",
         "description": "",
         "tags": [
           "V1"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
         "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },
@@ -204,13 +352,110 @@
     "/v1/consumers/home/getHomeCategories": {
       "get": {
         "operationId": "get-v1-consumers-home-getHomeCategories",
-        "summary": "",
+        "summary": "GET Product Categories",
         "description": "",
         "tags": [
           "V1"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
         "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getJustForYouProducts": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getJustForYouProducts",
+        "summary": "GET JustForYou Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },
@@ -223,13 +468,52 @@
     "/v1/consumers/home/getPopularProducts": {
       "get": {
         "operationId": "get-v1-consumers-home-getPopularProducts",
-        "summary": "",
+        "summary": "GET Popular Products",
         "description": "",
         "tags": [
           "V1"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
         "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },
@@ -242,7 +526,7 @@
     "/v1/consumers/product/{slug}": {
       "get": {
         "operationId": "get-v1-consumers-product-{slug}",
-        "summary": "",
+        "summary": "Show Product",
         "description": "",
         "tags": [
           "V1"

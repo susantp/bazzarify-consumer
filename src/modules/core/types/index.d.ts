@@ -5,11 +5,12 @@ export interface IApiResponse<T> {
 
 export interface IApiData<T> {
   message: string;
-  payload: Record<string, T>;
+  payload: null | Record<string, T>;
 }
 export interface IApiMetaData {
-  error: string | null | object[];
-  errorCode: number;
+  error: string | null | object[] | Record<string, string>;
+  executionTime?: number | null;
+  errorCode: number | null;
 }
 export interface ISimplePaginated<T> {
   current_page: number;

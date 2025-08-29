@@ -1,12 +1,12 @@
-import { IApiMetaData } from "@/modules/core/data";
+import { IApiData, IApiMetaData } from "@/modules/core/types";
 
 interface ISuccessResponse<T> {
-  data: { message: string; payload: T };
+  data: IApiData<T>;
   status: number;
 }
 
-export const handleSuccess = <T>({ data, status }: ISuccessResponse<T>) =>
+export const handleSuccess = <T>({ data, status = 200 }: ISuccessResponse<T>) =>
   Response.json(data, { status });
 
-export const handleError = (data: IApiMetaData) =>
-  Response.json(data, { status: data.errorCode ?? 500 });
+export const handleError = (metaData: IApiMetaData) =>
+  Response.json(metaData, { status: metaData.errorCode ?? 500 });

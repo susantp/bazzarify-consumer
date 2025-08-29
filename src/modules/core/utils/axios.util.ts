@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from "axios";
 const axiosDefaults: CreateAxiosDefaults = {
   headers: {
+    "X-Susant": "true",
     "User-Agent": "BazzarifyConsumer",
     "Content-Type": "application/json",
     "X-APP-Key": process.env.X_APP_KEY || "",

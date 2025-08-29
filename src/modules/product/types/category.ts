@@ -1,16 +1,21 @@
-import { IAttribute } from "@/modules/product/types/attribute";
-import { ISpecification } from "@/modules/product/types/specification";
+import { IImage } from "@/modules/product/types/image";
 
 export interface ICategory {
   uuid: string;
-  id: string;
+  id?: string;
   name: string;
   position?: string;
   slug: string;
   specifications?: string[];
-  specifications_with_model?: ISpecification[];
   attributes?: string[];
-  attributes_with_model?: IAttribute[];
+}
+
+export interface ICategoryWithRecursiveParentChildren extends ICategory {
   parent?: ICategory;
   children?: ICategory[];
+}
+
+export interface ICategoryListWithImage
+  extends Omit<ICategory, "id" | "position" | "specifications" | "attributes"> {
+  images: IImage[];
 }

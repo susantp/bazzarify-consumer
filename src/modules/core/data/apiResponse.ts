@@ -1,8 +1,4 @@
-import {
-  IApiData,
-  IApiMetaData,
-  IApiResponse,
-} from "@/modules/core/data/index";
+import { IApiData, IApiMetaData, IApiResponse } from "@/modules/core/types";
 
 export function setResponse<T>({ data, metaData }: IApiResponse<T>) {
   return {

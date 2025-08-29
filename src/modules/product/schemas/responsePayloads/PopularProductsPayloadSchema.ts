@@ -2,11 +2,8 @@ import { z } from "zod";
 import { OmittedProductWithImageSchema } from "@/modules/product/schemas/ProductSchema";
 import { SimplePaginatedSchema } from "@/modules/product/schemas/SimplePaginated";
 
-export const FlashDealsPayloadSchema = z
+export const PopularProductsPayloadSchema = z
   .object({
-    flashDeals: z.union([
-      SimplePaginatedSchema(OmittedProductWithImageSchema),
-      z.array(z.unknown()).length(0),
-    ]),
+    popularProducts: SimplePaginatedSchema(OmittedProductWithImageSchema),
   })
   .strip();
