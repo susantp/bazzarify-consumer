@@ -20,6 +20,9 @@
       }
     },
     "schemas": {
+      "200": {},
+      "307": {},
+      "NextRequest": {},
       "FlashDealQueryParams": {
         "type": "object",
         "properties": {
@@ -275,13 +278,48 @@
     "/v1/auth/redirect": {
       "get": {
         "operationId": "get-v1-auth-redirect",
-        "summary": "",
+        "summary": "Social login redirect",
         "description": "",
         "tags": [
           "V1"
         ],
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/auth/user": {
+      "get": {
+        "operationId": "get-v1-auth-user",
+        "summary": "Get Authenticated User",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },

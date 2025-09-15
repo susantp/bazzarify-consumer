@@ -1,35 +1,30 @@
-import axiosInstance from "@/modules/core/utils/axios.util";
+import {NextRequest} from "next/server";
+import {createAuthAxiosInstance} from "@/modules/core/utils/axios.util";
+import {handleError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {UserPayloadSchema} from "@/modules/auth/schemas/responsePayloads/UserPayloadSchema";
-import {handleError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
-import {NextRequest} from "next/server";
-import {z} from "zod";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {FlashDealsPayloadSchema} from "@/modules/product/schemas/responsePayloads/FlashDealsPayloadSchema";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const FlashDealQueryParams = z.object({
-    perPage: z.number().optional().describe("Page number"),
-    limit: z.number().optional().describe("Results per page"),
-    search: z.string().optional().describe("Search phrase"),
-});
 
 /**
- * GET Flash Deals Products
+ * Get Authenticated User
  * @content-type application/json
- * @params FlashDealQueryParams
- * @response IApiResponseSchema
+ * @params NextRequest
+ * @response 200
  */
 export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/home/getFlashDealProducts";
-    const requestUrl = new URL(request.url);
-    const searchParams = requestUrl.searchParams;
+    const token = request.headers.get("x-api-token");
+    if (!token) {
+        return handleError({
+            error: "Unauthorized",
+            errorCode: 401
+        })
+    }
+    const upstreamRequestPath = "/user";
     let upstream: AxiosResponse<unknown>;
     try {
-        upstream = await axiosInstance.get(upstreamRequestPath, {
-            params: Object.fromEntries(searchParams),
-        });
+        const instance = createAuthAxiosInstance(token)
+        upstream = await instance.get(upstreamRequestPath);
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             const ax = error as AxiosError;
@@ -39,7 +34,7 @@ export async function GET(request: NextRequest) {
         const msg = error instanceof Error ? error.message : "Unknown error";
         return handleError({error: msg, errorCode: 500});
     }
-    const parsed = ApiResponseSchema(FlashDealsPayloadSchema).safeParse(
+    const parsed = ApiResponseSchema(UserPayloadSchema).safeParse(
         upstream.data,
     );
 

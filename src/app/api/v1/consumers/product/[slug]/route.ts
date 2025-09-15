@@ -26,7 +26,7 @@ export async function GET(_req: NextRequest, { params }: IGetParams) {
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       const ax = error as AxiosError;
-      return handleError({ error: ax.message, errorCode: 500 });
+      return handleError({ error: ax.message, errorCode: error.status || 500 });
     }
 
     const msg = error instanceof Error ? error.message : "Unknown error";
