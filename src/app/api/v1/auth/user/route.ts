@@ -54,3 +54,39 @@ export async function GET(request: NextRequest) {
         status: 200,
     });
 }
+
+
+/**
+ * follow these Principles:
+ * - IntelliSense-friendly patterns.
+ * - Reference latest JavaScript & TypeScript docs.
+ * - Always functional approach.
+ * - Finest e-commerce design suggestions.
+ * - React Native 19, Expo 53, TypeScript 5.
+ * - Approaches:
+ *   - Scalable
+ *   - Readable
+ *   - One-liner where appropriate
+ *   - Modular
+ *   - Solid but simple (avoid over-engineering)
+ *   - Strongly typed (avoid `any`)
+ *
+ * do these:
+ * ----
+ * - Keep modular structure: each module owns its domain; shared stuff in `core`.
+ * - Write strict TypeScript: no `any`, define clear types/interfaces.
+ * - Keep hooks thin (orchestration only); put logic in `utils/services`.
+ * - Use constants/config for keys & env, never hardcode strings.
+ * - Handle errors in utils, report via Sentry/logging.
+ * - Use mirror pattern: storage for persistence, state (atoms) for reactive access.
+ * - Keep functions small, composable, and testable.
+ *
+ * dont do these:
+ * ---
+ * - Don’t create require cycles (e.g., `auth → core → auth`).
+ * - Don’t put business logic inside hooks/components.
+ * - Don’t block render with async work — bootstrap in effects/pipelines.
+ * - Don’t duplicate utilities across modules.
+ * - Don’t use library internals (e.g., `SetAtom` from Jotai) — define local types.
+ * - Don’t swallow errors or logs — always capture.
+ */

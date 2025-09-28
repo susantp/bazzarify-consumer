@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, CreateAxiosDefaults, RawAxiosRequestHeaders} from "axios";
+import axios, {AxiosInstance, CreateAxiosDefaults} from "axios";
 
 
 export const axiosDefaults: CreateAxiosDefaults = {
@@ -30,7 +30,7 @@ export const getHeadersWithToken = (token: string) => {
 /**
  * Creates an authenticated axios instance with the provided token
  * Merges the token with existing authConfig
- * 
+ *
  * @param token The authentication token
  * @returns AxiosInstance configured with the token
  */
@@ -39,6 +39,17 @@ export const createAuthAxiosInstance = (token: string): AxiosInstance => {
         ...authConfig,
         headers: {
             ...authConfig.headers,
+            Authorization: `Bearer ${token}`
+        }
+    };
+    return axios.create(configWithToken);
+}
+
+export const createConsumerAxiosInstance = (token: string): AxiosInstance => {
+    const configWithToken: CreateAxiosDefaults = {
+        ...defaultConfig,
+        headers: {
+            ...defaultConfig.headers,
             Authorization: `Bearer ${token}`
         }
     };
