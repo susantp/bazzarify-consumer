@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-const UserSchema = z
+export const UserSchema = z
     .object({
         uuid: z.uuid(),
         authType: z.string(),
@@ -11,7 +11,8 @@ const UserSchema = z
         email_verified_at: z.date().nullable(),
     })
     .strip();
-
+export const UserUuid = UserSchema.pick({
+    uuid: true,
+})
 export type TUser = z.infer<typeof UserSchema>;
-
-export default UserSchema;
+export type TUserUuid = z.infer<typeof UserUuid>;
