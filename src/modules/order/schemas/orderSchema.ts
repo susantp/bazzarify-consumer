@@ -49,6 +49,7 @@ export const OrderSchema = z
         shipping_total: z.float64().nonnegative().default(0),
         grand_total: z.float64().nonnegative().default(0),
         payment_status: z.string().max(32),
+        payment_fee: z.float64().nonnegative().default(0),
         placed_at: z.iso.datetime(),
         cancelled_at: z.iso.datetime().nullable().optional(),
         completed_at: z.iso.datetime().nullable().optional(),
@@ -67,6 +68,7 @@ export const OrderTotalsSchema = OrderSchema.pick({
     tax_total: true,
     shipping_total: true,
     grand_total: true,
+    payment_fee: true,
 }).strict();
 export const CartItem = OrderItemSchema.pick({
     line_id: true,
