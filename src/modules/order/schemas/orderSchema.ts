@@ -60,6 +60,14 @@ export const OrderSchema = z
         items: z.array(OrderItemSchema),
     })
     .strict();
+
+export const OrderTotalsSchema = OrderSchema.pick({
+    sub_total: true,
+    discount_total: true,
+    tax_total: true,
+    shipping_total: true,
+    grand_total: true,
+}).strict();
 export const CartItem = OrderItemSchema.pick({
     line_id: true,
     uuid: true,

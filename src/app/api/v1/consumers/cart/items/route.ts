@@ -8,7 +8,6 @@ import {CartResponsePayload} from "@/modules/cart/schemas/responsePayloads/CartR
 
 export async function GET(request: NextRequest) {
     const token = request.headers.get("x-api-token");
-    console.log("token ", token)
     if (!token) {
         return handleError({
             error: "Unauthorized",
