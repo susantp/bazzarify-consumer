@@ -96,7 +96,7 @@ export const CartMeta = OrderSchema.pick({
 
 export const Cart = z
     .object({
-        items: z.array(CartItem).nonempty(),
+        items: z.array(CartItem),
         totals: CartMeta,
     })
     .strict()
