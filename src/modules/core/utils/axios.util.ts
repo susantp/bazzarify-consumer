@@ -12,10 +12,9 @@ export const axiosDefaults: CreateAxiosDefaults = {
 };
 const baseURL =
     process.env.API_URL ||
-    "http://local-ne.bazzarify.local:8081/api/v1/consumers";
-
+    "http://local-ne.larashops.local:8081/api/v1/consumers";
 const authUrl =
-    process.env.AUTH_URL || "http://local-ne.bazzarify.local:8081/api/v1/auth";
+    process.env.AUTH_URL || "http://local-ne.larashops.local:8081/api/v1/auth";
 
 const defaultConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL};
 const authConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL: authUrl};

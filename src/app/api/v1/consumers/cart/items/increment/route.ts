@@ -23,8 +23,9 @@ export async function POST(request: NextRequest) {
         upstream = await instance.post(upstreamRequestPath, payload);
         console.log("cart add response: ", JSON.stringify(upstream.data));
     } catch (error: unknown) {
-        console.log('cart item post error: ', error);
+
         if (isAxiosError(error)) {
+            console.log('cart item post error: ', error.response?.data);
             const ax = error as AxiosError;
             return handleError({error: ax.message, errorCode: error.status || 500});
         }
