@@ -7,7 +7,7 @@ import {
 } from "@/modules/core/utils/jsonResponse.utils";
 import { formattedIssues } from "@/modules/core/utils/zod.util";
 import { NextRequest } from "next/server";
-import { ProductShowPayloadSchema } from "@/modules/product/schemas/responsePayloads/ProductShowPayloadSchema";
+import { ShowProductPayloadSchema } from "@/modules/product/schemas/responsePayloads/ShowProductPayloadSchema";
 
 export interface IGetParams {
   params: Promise<{ slug: string }>;
@@ -26,14 +26,14 @@ export async function GET(_req: NextRequest, { params }: IGetParams) {
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       const ax = error as AxiosError;
-      return handleError({ error: ax.message, errorCode: 500 });
+      return handleError({ error: ax.message, errorCode: error.status || 500 });
     }
 
     const msg = error instanceof Error ? error.message : "Unknown error";
     return handleError({ error: msg, errorCode: 500 });
   }
 
-  const parsed = ApiResponseSchema(ProductShowPayloadSchema).safeParse(
+  const parsed = ApiResponseSchema(ShowProductPayloadSchema).safeParse(
     upstream.data,
   );
 
@@ -43,7 +43,7 @@ export async function GET(_req: NextRequest, { params }: IGetParams) {
       errorCode: 502,
     });
   }
-  console.log(parsed.data.data.payload?.product);
+
   const { data, metaData } = parsed.data;
   if (metaData?.error !== "") {
     return handleError(metaData);

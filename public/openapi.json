@@ -20,6 +20,9 @@
       }
     },
     "schemas": {
+      "200": {},
+      "307": {},
+      "NextRequest": {},
       "FlashDealQueryParams": {
         "type": "object",
         "properties": {
@@ -78,53 +81,6 @@
             "type": "string",
             "nullable": true,
             "description": "Search phrase"
-          }
-        }
-      },
-      "string": {},
-      "MetaDataSchema": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            ]
-          },
-          "executionTime": {
-            "type": "number",
-            "nullable": true
-          },
-          "errorCode": {
-            "type": "number",
-            "nullable": true
-          }
-        },
-        "required": [
-          "error"
-        ]
-      },
-      "TimeStampsSchema": {
-        "type": "object",
-        "properties": {
-          "created_at": {
-            "type": "string",
-            "nullable": true
-          },
-          "updated_at": {
-            "type": "string",
-            "nullable": true
-          },
-          "deleted_at": {
-            "type": "string",
-            "nullable": true
           }
         }
       }
@@ -275,6 +231,117 @@
     "/v1/auth/redirect": {
       "get": {
         "operationId": "get-v1-auth-redirect",
+        "summary": "Social login redirect",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/307"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/auth/user": {
+      "get": {
+        "operationId": "get-v1-auth-user",
+        "summary": "Get Authenticated User",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/addresses": {
+      "get": {
+        "operationId": "get-v1-consumers-addresses",
+        "summary": "List user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-v1-consumers-addresses",
+        "summary": "Save user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items": {
+      "get": {
+        "operationId": "get-v1-consumers-cart-items",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-v1-consumers-cart-items",
         "summary": "",
         "description": "",
         "tags": [
@@ -336,7 +403,9 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
               }
             }
           },
@@ -394,7 +463,9 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
               }
             }
           },
@@ -452,7 +523,9 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
               }
             }
           },
@@ -510,7 +583,9 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
               }
             }
           },
@@ -570,13 +645,6 @@
           "V1"
         ],
         "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
-        },
         "responses": {
           "400": {
             "$ref": "#/components/responses/400"
@@ -596,13 +664,63 @@
           "V1"
         ],
         "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
-        },
+        }
+      }
+    },
+    "/v1/consumers/cart/items/decrement": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-decrement",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items/increment": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-increment",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items/remove": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-remove",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
         "responses": {
           "400": {
             "$ref": "#/components/responses/400"
