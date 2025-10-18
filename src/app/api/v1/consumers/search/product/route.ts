@@ -3,25 +3,15 @@ import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {NextRequest} from "next/server";
-import {z} from "zod";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {FlashDealsPayloadSchema} from "@/modules/product/schemas/responsePayloads/FlashDealsPayloadSchema";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const FlashDealQueryParams = z.object({
-    perPage: z.number().optional().describe("Page number"),
-    limit: z.number().optional().describe("Results per page"),
-    search: z.string().optional().describe("Search phrase"),
-});
+import {ProductSearchPayloadSchema} from "@/modules/product/schemas/responsePayloads/ProductSearchPayloadSchema";
 
 /**
- * GET Flash Deals Products
+ * Search Products
  * @content-type application/json
- * @params FlashDealQueryParams
- * @response IApiResponseSchema
  */
 export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/home/getFlashDealProducts";
+    const upstreamRequestPath = "/search/product";
     const requestUrl = new URL(request.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;
@@ -38,7 +28,8 @@ export async function GET(request: NextRequest) {
         const msg = error instanceof Error ? error.message : "Unknown error";
         return handleError({error: msg, errorCode: 500});
     }
-    const parsed = ApiResponseSchema(FlashDealsPayloadSchema).safeParse(
+    console.log(upstream.data)
+    const parsed = ApiResponseSchema(ProductSearchPayloadSchema).safeParse(
         upstream.data,
     );
 
@@ -53,7 +44,6 @@ export async function GET(request: NextRequest) {
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
-    console.log(data.payload?.flashDeals?.data?.at(0))
     return handleSuccess({
         data,
         status: 200,
