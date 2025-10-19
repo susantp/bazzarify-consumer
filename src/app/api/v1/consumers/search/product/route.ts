@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
         const msg = error instanceof Error ? error.message : "Unknown error";
         return handleError({error: msg, errorCode: 500});
     }
-    console.log(upstream.data)
     const parsed = ApiResponseSchema(ProductSearchPayloadSchema).safeParse(
         upstream.data,
     );
@@ -44,6 +43,7 @@ export async function GET(request: NextRequest) {
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
+    console.log('search response: ', parsed.data.data.payload, parsed.data.data.payload?.products?.data?.at(0));
     return handleSuccess({
         data,
         status: 200,
