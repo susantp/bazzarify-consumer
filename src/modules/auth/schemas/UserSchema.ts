@@ -7,8 +7,8 @@ export const UserSchema = z
         name: z.string(),
         email: z.email(),
         phone: z.string(),
-        phone_verified_at: z.date().nullable(),
-        email_verified_at: z.date().nullable(),
+        phone_verified_at: z.string().nullable(),
+        email_verified_at: z.string().nullable(),
     })
     .strip();
 export const UserUuid = UserSchema.pick({

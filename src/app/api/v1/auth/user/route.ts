@@ -49,6 +49,8 @@ export async function GET(request: NextRequest) {
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
+
+    console.log("user response", parsed.data);
     return handleSuccess({
         data,
         status: 200,

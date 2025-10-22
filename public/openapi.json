@@ -322,6 +322,44 @@
         }
       }
     },
+    "/v1/consumers/orders": {
+      "post": {
+        "operationId": "post-v1-consumers-orders",
+        "summary": "Get Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/addresses/{uuid}": {
+      "post": {
+        "operationId": "post-v1-consumers-addresses-{uuid}",
+        "summary": "Update user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/v1/consumers/cart/items": {
       "get": {
         "operationId": "get-v1-consumers-cart-items",
@@ -598,10 +636,48 @@
         }
       }
     },
+    "/v1/consumers/orders/place": {
+      "post": {
+        "operationId": "post-v1-consumers-orders-place",
+        "summary": "Place Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/v1/consumers/product/{slug}": {
       "get": {
         "operationId": "get-v1-consumers-product-{slug}",
         "summary": "Show Product",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/search/product": {
+      "get": {
+        "operationId": "get-v1-consumers-search-product",
+        "summary": "Search Products",
         "description": "",
         "tags": [
           "V1"
