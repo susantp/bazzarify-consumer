@@ -108,7 +108,8 @@ export const CartItemToUpdateQuantitySchema = CartItem.pick({
     qty_ordered: true,
 });
 export const GetOrder = OrderSchema.pick({
-    uuid: true,
+    // uuid: true,
+    order_number: true,
     status: true,
     placed_at: true,
 })
@@ -116,14 +117,12 @@ export const GetOrder = OrderSchema.pick({
         items: z.array(
             OrderItemSchema.pick({
                 uuid: true,
-                order_number: true,
                 name: true,
-                qty: true,
-            }),
+                qty_ordered: true,
+            }).strip(),
         ),
     })
-    .strip()
-    .nullable();
+    .strip();
 export type TOrder = z.infer<typeof OrderSchema>;
 export type TOrderItem = z.infer<typeof OrderItemSchema>;
 export type TCart = z.infer<typeof Cart>;

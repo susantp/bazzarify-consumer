@@ -323,8 +323,8 @@
       }
     },
     "/v1/consumers/orders": {
-      "post": {
-        "operationId": "post-v1-consumers-orders",
+      "get": {
+        "operationId": "get-v1-consumers-orders",
         "summary": "Get Order",
         "description": "",
         "tags": [

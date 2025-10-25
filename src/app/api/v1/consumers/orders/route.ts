@@ -20,11 +20,10 @@ export async function GET(request: NextRequest) {
         })
     }
     const upstreamRequestPath = "/orders";
-    const payload = await request.json()
     let upstream: AxiosResponse<unknown>;
     try {
         const instance = createConsumerAxiosInstance(token)
-        upstream = await instance.post(upstreamRequestPath, payload);
+        upstream = await instance.get(upstreamRequestPath);
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             const ax = error as AxiosError;
@@ -45,6 +44,7 @@ export async function GET(request: NextRequest) {
     }
 
     const {data, metaData} = parsed.data;
+    console.log('orders: ', data, metaData);
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
