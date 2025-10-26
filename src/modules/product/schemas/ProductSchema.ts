@@ -45,4 +45,4 @@ export const OmittedProductWithImageSchema = ProductSchema.omit({
     .extend({
         images: z.union([z.array(ImageSchema).optional(), z.array(z.unknown())]),
     })
-    .strict();
+    .strip();

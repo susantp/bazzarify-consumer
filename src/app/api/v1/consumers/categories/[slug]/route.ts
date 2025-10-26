@@ -1,33 +1,36 @@
 import axiosInstance from "@/modules/core/utils/axios.util";
-import {AxiosError, AxiosResponse, isAxiosError} from "axios";
-import {NextRequest} from "next/server";
+import {AxiosResponse} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {HomeCategoriesPayloadSchema} from "@/modules/product/schemas/responsePayloads/HomeCategoriesPayloadSchema";
+import {NextRequest} from "next/server";
+import {ShowCategoryPayloadSchema} from "@/modules/product/schemas/responsePayloads/ShowCategorytPayloadSchema";
+
+export interface IGetParams {
+    params: Promise<{ slug: string }>;
+}
 
 /**
- * GET Product Categories for homepage
+ * Show Category
  * @content-type application/json
- * @params FlashDealQueryParams
- * @response IApiResponseSchema
+ * @params string slug
  */
-export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/home/getHomeCategories";
-    const requestUrl = new URL(request.url);
-    const searchParams = requestUrl.searchParams;
+export async function GET(_req: NextRequest, {params}: IGetParams) {
+    const {slug} = await params;
+    const upstreamRequestPath = `/category/${slug}`;
     let upstream: AxiosResponse<unknown>;
     try {
-        upstream = await axiosInstance.get(upstreamRequestPath, {
-            params: Object.fromEntries(searchParams),
-        });
+        upstream = await axiosInstance.get(upstreamRequestPath);
     } catch (error: unknown) {
-        return handleError(error)
+        return handleError(error);
     }
 
-    const parsed = ApiResponseSchema(HomeCategoriesPayloadSchema).safeParse(
+    console.log(upstream.data);
+
+    const parsed = ApiResponseSchema(ShowCategoryPayloadSchema).safeParse(
         upstream.data,
     );
+
     if (!parsed.success) {
         return handleParseError({
             error: formattedIssues(parsed.error.issues),

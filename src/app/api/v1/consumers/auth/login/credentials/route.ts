@@ -4,6 +4,7 @@ import {
 } from "@/modules/core/data/apiResponse";
 import { authAxiosInstance } from "@/modules/core/utils/axios.util";
 import { AxiosError } from "axios";
+import {handleError} from "@/modules/core/utils/jsonResponse.utils";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -28,18 +29,6 @@ export async function POST(request: Request) {
       }),
     );
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      return Response.json(
-        setMetaDataResponse({
-          error: error.response?.data?.metaData.error,
-          errorCode: 500,
-        }),
-        { status: 500, statusText: "Internal Server Error" },
-      );
-    }
-    return Response.json(
-      setMetaDataResponse({ error: "Unknown error", errorCode: 500 }),
-      { status: 500, statusText: "Internal Server Error" },
-    );
+      return handleError(error)
   }
 }
