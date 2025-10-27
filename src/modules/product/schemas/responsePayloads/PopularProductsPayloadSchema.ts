@@ -1,9 +1,9 @@
 import {z} from "zod";
-import {OmittedProductWithImageSchema} from "@/modules/product/schemas/ProductSchema";
+import {OmittedProductWithImagesSchema} from "@/modules/product/schemas/ProductSchema";
 import {SimplePaginatedSchema} from "@/modules/product/schemas/SimplePaginated";
 
 export const PopularProductsPayloadSchema = z
     .object({
-        popularProducts: SimplePaginatedSchema(OmittedProductWithImageSchema).nullable(),
+        popularProducts: SimplePaginatedSchema(OmittedProductWithImagesSchema).nullable(),
     })
     .strip();

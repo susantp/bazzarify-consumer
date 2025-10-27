@@ -27,11 +27,9 @@ export const CategoryWithImageSchema = CategoryCore.pick({
     })
     .strip();
 
-export const CategoryRecursiveWithImageSchema: typeof CategoryWithImageSchema =
+export const CategoryRecursiveWithImageSchema =
     CategoryWithImageSchema.extend({
-        parent: z.lazy(() => CategoryRecursiveWithImageSchema).optional(),
-        children: z
-            .array(z.lazy(() => CategoryRecursiveWithImageSchema))
-            .optional(),
+        parent: CategoryWithImageSchema.optional(),
+        children: z.array(CategoryWithImageSchema).optional(),
         images: z.array(ImageSchema).optional()
     });

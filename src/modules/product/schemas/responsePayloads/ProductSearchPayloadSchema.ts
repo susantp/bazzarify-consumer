@@ -1,10 +1,10 @@
 import {z} from "zod";
-import {OmittedProductWithImageSchema} from "@/modules/product/schemas/ProductSchema";
+import {OmittedProductWithImagesSchema} from "@/modules/product/schemas/ProductSchema";
 import {SimplePaginatedSchema} from "@/modules/product/schemas/SimplePaginated";
 
 export const ProductSearchPayloadSchema = z
     .object({
-        products: SimplePaginatedSchema(OmittedProductWithImageSchema).nullable(),
+        products: SimplePaginatedSchema(OmittedProductWithImagesSchema).nullable(),
         currency: z.object({
             code: z.string(),
         }),

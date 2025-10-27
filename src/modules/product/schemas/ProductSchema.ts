@@ -29,7 +29,7 @@ export const ProductSchema = z
     }) //TODO remove this from core product schema, extend it later
     .extend(TimeStampsSchema.shape)
     .strict();
-export const OmittedProductWithImageSchema = ProductSchema.omit({
+export const OmittedProductWithImagesSchema = ProductSchema.omit({
     id: true,
     box_items: true,
     specifications: true,
@@ -43,6 +43,6 @@ export const OmittedProductWithImageSchema = ProductSchema.omit({
     deleted_at: true,
 })
     .extend({
-        images: z.union([z.array(ImageSchema).optional(), z.array(z.unknown())]),
+        images: z.array(ImageSchema).optional().nullable(),
     })
     .strip();

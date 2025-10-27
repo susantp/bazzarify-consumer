@@ -24,13 +24,9 @@ export async function GET(_req: NextRequest, {params}: IGetParams) {
     } catch (error: unknown) {
         return handleError(error);
     }
-
-    console.log(upstream.data);
-
     const parsed = ApiResponseSchema(ShowCategoryPayloadSchema).safeParse(
         upstream.data,
     );
-
     if (!parsed.success) {
         return handleParseError({
             error: formattedIssues(parsed.error.issues),
