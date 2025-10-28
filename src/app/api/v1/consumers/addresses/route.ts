@@ -1,5 +1,5 @@
 import {NextRequest} from "next/server";
-import {handleError, handleSuccess} from "@/modules/core/utils/jsonResponse.utils";
+import {handleError, handleParseError, handleSuccess} from "@/modules/core/utils/jsonResponse.utils";
 import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
@@ -26,21 +26,13 @@ export async function GET(request: NextRequest) {
         upstream = await instance.get(upstreamRequestPath);
         console.log("list addresses: ", JSON.stringify(upstream.data));
     } catch (error: unknown) {
-        console.log('list addresses error: ', error);
-        if (isAxiosError(error)) {
-            const ax = error as AxiosError;
-            return handleError({error: ax.message, errorCode: error.status || 500});
-        }
-
-        const msg = error instanceof Error ? error.message : "Unknown error";
-        return handleError({error: msg, errorCode: 500});
+        return handleError(error)
     }
     const parsed = ApiResponseSchema(UserAddressesPayloadSchema).safeParse(
         upstream.data,
     );
     if (!parsed.success) {
-        console.log("cart response parsed error: ", formattedIssues(parsed.error.issues))
-        return handleError({
+        return handleParseError({
             error: formattedIssues(parsed.error.issues),
             errorCode: 502,
         });
@@ -77,21 +69,13 @@ export async function POST(request: NextRequest) {
         const instance = createConsumerAxiosInstance(token)
         upstream = await instance.post(upstreamRequestPath, payload);
     } catch (error: unknown) {
-        console.log('address item post error: ', error);
-        if (isAxiosError(error)) {
-            const ax = error as AxiosError;
-            return handleError({error: ax.message, errorCode: error.status || 500});
-        }
-
-        const msg = error instanceof Error ? error.message : "Unknown error";
-        return handleError({error: msg, errorCode: 500});
+        return handleError(error)
     }
     const parsed = ApiResponseSchema(UserAddressesPayloadSchema).safeParse(
         upstream.data,
     );
     if (!parsed.success) {
-        console.log("address response parsed error: ", formattedIssues(parsed.error.issues))
-        return handleError({
+        return handleParseError({
             error: formattedIssues(parsed.error.issues),
             errorCode: 502,
         });

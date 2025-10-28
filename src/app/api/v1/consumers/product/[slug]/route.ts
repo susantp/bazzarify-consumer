@@ -1,7 +1,7 @@
 import axiosInstance from "@/modules/core/utils/axios.util";
 import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
-import {handleError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
+import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
 import {NextRequest} from "next/server";
 import {ShowProductPayloadSchema} from "@/modules/product/schemas/responsePayloads/ShowProductPayloadSchema";
@@ -22,13 +22,7 @@ export async function GET(_req: NextRequest, {params}: IGetParams) {
     try {
         upstream = await axiosInstance.get(upstreamRequestPath);
     } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            const ax = error as AxiosError;
-            return handleError({error: ax.message, errorCode: error.status || 500});
-        }
-
-        const msg = error instanceof Error ? error.message : "Unknown error";
-        return handleError({error: msg, errorCode: 500});
+        return handleError(error)
     }
 
     const parsed = ApiResponseSchema(ShowProductPayloadSchema).safeParse(
@@ -36,7 +30,7 @@ export async function GET(_req: NextRequest, {params}: IGetParams) {
     );
 
     if (!parsed.success) {
-        return handleError({
+        return handleParseError({
             error: formattedIssues(parsed.error.issues),
             errorCode: 502,
         });

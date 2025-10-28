@@ -1,12 +1,29 @@
-import { IApiData, IApiMetaData } from "@/modules/core/types";
+import {IApiData, IApiMetaData, IApiResponse} from "@/modules/core/types";
+import {AxiosError, isAxiosError} from "axios";
 
 interface ISuccessResponse<T> {
-  data: IApiData<T>;
-  status: number;
+    data: IApiData<T>;
+    status: number;
 }
 
-export const handleSuccess = <T>({ data, status = 200 }: ISuccessResponse<T>) =>
-  Response.json(data, { status });
+export const handleSuccess = <T>({data, status = 200}: ISuccessResponse<T>) =>
+    Response.json(data, {status});
 
-export const handleError = (metaData: IApiMetaData) =>
-  Response.json(metaData, { status: metaData.errorCode ?? 500 });
+export const handleError = (error: unknown) => {
+    const metaData: IApiMetaData = {error: error instanceof Error ? error.message : "Unknown error", errorCode: 500};
+    if (isAxiosError(error)) {
+        const ax = error as AxiosError;
+        const responseData = ax.response?.data as IApiResponse<IApiMetaData>;
+        if (("metaData" in responseData)) {
+            metaData['error'] = responseData.metaData.error
+            metaData['errorCode'] = responseData.metaData.errorCode
+        }
+        return Response.json(metaData, {status: metaData.errorCode ?? 500});
+    }
+
+    return Response.json(metaData, {status: metaData.errorCode ?? 500});
+}
+
+export const handleParseError = (metaData: IApiMetaData) => {
+    return Response.json(metaData, {status: metaData.errorCode ?? 500});
+}

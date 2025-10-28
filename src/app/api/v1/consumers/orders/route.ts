@@ -3,10 +3,15 @@ import {handleError, handleParseError, handleSuccess} from "@/modules/core/utils
 import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
-import {CartResponsePayload} from "@/modules/cart/schemas/responsePayloads/CartResponsePayload";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
+import {GetOrdersResponsePayload} from "@/modules/order/schemas/responsePayloads/GetOrdersResponsePayload";
 
-export async function POST(request: NextRequest) {
+/**
+ * Get Order
+ * @content-type application/json
+ * @params string slug
+ */
+export async function GET(request: NextRequest) {
     const token = request.headers.get("x-api-token");
     if (!token) {
         return handleError({
@@ -14,18 +19,15 @@ export async function POST(request: NextRequest) {
             errorCode: 401
         })
     }
-    const upstreamRequestPath = "/cart/items/increment";
-    const payload = await request.json()
-    console.log('increment payload: ', payload);
+    const upstreamRequestPath = "/orders";
     let upstream: AxiosResponse<unknown>;
     try {
         const instance = createConsumerAxiosInstance(token)
-        upstream = await instance.post(upstreamRequestPath, payload);
-        console.log("cart add response: ", JSON.stringify(upstream.data));
+        upstream = await instance.get(upstreamRequestPath);
     } catch (error: unknown) {
         return handleError(error)
     }
-    const parsed = ApiResponseSchema(CartResponsePayload).safeParse(
+    const parsed = ApiResponseSchema(GetOrdersResponsePayload).safeParse(
         upstream.data,
     );
     if (!parsed.success) {
@@ -36,6 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const {data, metaData} = parsed.data;
+    console.log('orders: ', data, metaData);
     if (metaData?.error !== "") {
         return handleError(metaData);
     }

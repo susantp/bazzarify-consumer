@@ -25,10 +25,6 @@ export async function GET(request: NextRequest) {
         const {redirectUrl} = response.data.data.payload;
         return NextResponse.redirect(redirectUrl);
     } catch (error: unknown) {
-        console.log(error);
-        return NextResponse.json(
-            {error: "Failed to initiate login"},
-            {status: 500},
-        );
+        return handleError(error)
     }
 }

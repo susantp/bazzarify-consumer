@@ -1,19 +1,17 @@
 import axiosInstance from "@/modules/core/utils/axios.util";
 import {AxiosError, AxiosResponse, isAxiosError} from "axios";
-import {NextRequest} from "next/server";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
+import {NextRequest} from "next/server";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {HomeCategoriesPayloadSchema} from "@/modules/product/schemas/responsePayloads/HomeCategoriesPayloadSchema";
+import {ProductSearchPayloadSchema} from "@/modules/product/schemas/responsePayloads/ProductSearchPayloadSchema";
 
 /**
- * GET Product Categories for homepage
+ * Search Products
  * @content-type application/json
- * @params FlashDealQueryParams
- * @response IApiResponseSchema
  */
 export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/home/getHomeCategories";
+    const upstreamRequestPath = "/search/product";
     const requestUrl = new URL(request.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;
@@ -24,10 +22,10 @@ export async function GET(request: NextRequest) {
     } catch (error: unknown) {
         return handleError(error)
     }
-
-    const parsed = ApiResponseSchema(HomeCategoriesPayloadSchema).safeParse(
+    const parsed = ApiResponseSchema(ProductSearchPayloadSchema).safeParse(
         upstream.data,
     );
+
     if (!parsed.success) {
         return handleParseError({
             error: formattedIssues(parsed.error.issues),
@@ -39,6 +37,7 @@ export async function GET(request: NextRequest) {
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
+    console.log('search response: ', parsed.data.data.payload, parsed.data.data.payload?.products?.data?.at(0));
     return handleSuccess({
         data,
         status: 200,

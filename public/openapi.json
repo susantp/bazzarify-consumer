@@ -322,6 +322,104 @@
         }
       }
     },
+    "/v1/consumers/categories": {
+      "get": {
+        "operationId": "get-v1-consumers-categories",
+        "summary": "GET Product Categories",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/orders": {
+      "get": {
+        "operationId": "get-v1-consumers-orders",
+        "summary": "Get Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/addresses/{uuid}": {
+      "post": {
+        "operationId": "post-v1-consumers-addresses-{uuid}",
+        "summary": "Update user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/v1/consumers/cart/items": {
       "get": {
         "operationId": "get-v1-consumers-cart-items",
@@ -343,6 +441,25 @@
       "post": {
         "operationId": "post-v1-consumers-cart-items",
         "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/categories/{slug}": {
+      "get": {
+        "operationId": "get-v1-consumers-categories-{slug}",
+        "summary": "Show Category",
         "description": "",
         "tags": [
           "V1"
@@ -421,7 +538,7 @@
     "/v1/consumers/home/getHomeCategories": {
       "get": {
         "operationId": "get-v1-consumers-home-getHomeCategories",
-        "summary": "GET Product Categories",
+        "summary": "GET Product Categories for homepage",
         "description": "",
         "tags": [
           "V1"
@@ -598,10 +715,48 @@
         }
       }
     },
+    "/v1/consumers/orders/place": {
+      "post": {
+        "operationId": "post-v1-consumers-orders-place",
+        "summary": "Place Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/v1/consumers/product/{slug}": {
       "get": {
         "operationId": "get-v1-consumers-product-{slug}",
         "summary": "Show Product",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/search/product": {
+      "get": {
+        "operationId": "get-v1-consumers-search-product",
+        "summary": "Search Products",
         "description": "",
         "tags": [
           "V1"

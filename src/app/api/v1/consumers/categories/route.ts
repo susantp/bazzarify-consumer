@@ -4,16 +4,16 @@ import {NextRequest} from "next/server";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {HomeCategoriesPayloadSchema} from "@/modules/product/schemas/responsePayloads/HomeCategoriesPayloadSchema";
+import {CategoryListPayloadSchema} from "@/modules/product/schemas/responsePayloads/CategoryListPayloadSchema";
 
 /**
- * GET Product Categories for homepage
+ * GET Product Categories
  * @content-type application/json
  * @params FlashDealQueryParams
  * @response IApiResponseSchema
  */
 export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/home/getHomeCategories";
+    const upstreamRequestPath = "/categories";
     const requestUrl = new URL(request.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;
@@ -25,9 +25,10 @@ export async function GET(request: NextRequest) {
         return handleError(error)
     }
 
-    const parsed = ApiResponseSchema(HomeCategoriesPayloadSchema).safeParse(
+    const parsed = ApiResponseSchema(CategoryListPayloadSchema).safeParse(
         upstream.data,
     );
+
     if (!parsed.success) {
         return handleParseError({
             error: formattedIssues(parsed.error.issues),

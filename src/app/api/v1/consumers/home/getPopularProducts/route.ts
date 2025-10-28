@@ -4,8 +4,8 @@ import { z } from "zod";
 import { NextRequest } from "next/server";
 import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";
 import {
-  handleError,
-  handleSuccess,
+    handleError, handleParseError,
+    handleSuccess,
 } from "@/modules/core/utils/jsonResponse.utils";
 import { formattedIssues } from "@/modules/core/utils/zod.util";
 import { PopularProductsPayloadSchema } from "@/modules/product/schemas/responsePayloads/PopularProductsPayloadSchema";
@@ -32,25 +32,19 @@ export async function GET(request: NextRequest) {
       params: Object.fromEntries(searchParams),
     });
   } catch (error: unknown) {
-    if (isAxiosError(error)) {
-      const ax = error as AxiosError;
-      return handleError({ error: ax.message, errorCode: error.status || 500 });
-    }
-
-    const msg = error instanceof Error ? error.message : "Unknown error";
-    return handleError({ error: msg, errorCode: 500 });
+    return handleError(error)
   }
 
   const parsed = ApiResponseSchema(PopularProductsPayloadSchema).safeParse(
     upstream.data,
   );
 
-  if (!parsed.success) {
-    return handleError({
-      error: formattedIssues(parsed.error.issues),
-      errorCode: 502,
-    });
-  }
+    if (!parsed.success) {
+        return handleParseError({
+            error: formattedIssues(parsed.error.issues),
+            errorCode: 502,
+        });
+    }
 
   const { data, metaData } = parsed.data;
   if (metaData?.error !== "") {
