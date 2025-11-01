@@ -11,7 +11,7 @@ export const handleSuccess = <T>({data, status = 200}: ISuccessResponse<T>) =>
 
 export const handleError = (error: unknown) => {
     const metaData: IApiMetaData = {error: error instanceof Error ? error.message : "Unknown error", errorCode: 500};
-    console.log(metaData);
+
     if (isAxiosError(error)) {
         const ax = error as AxiosError;
         const responseData = ax.response?.data as IApiResponse<IApiMetaData>;
@@ -22,7 +22,7 @@ export const handleError = (error: unknown) => {
         }
         return Response.json(metaData, {status: metaData.errorCode ?? 500});
     }
-
+    console.log(metaData)
     return Response.json(metaData, {status: metaData.errorCode ?? 500});
 }
 

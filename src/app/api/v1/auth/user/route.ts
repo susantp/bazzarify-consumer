@@ -1,7 +1,7 @@
 import {NextRequest} from "next/server";
 import {createAuthAxiosInstance} from "@/modules/core/utils/axios.util";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
-import {AxiosError, AxiosResponse, isAxiosError} from "axios";
+import {AxiosResponse} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {UserPayloadSchema} from "@/modules/auth/schemas/responsePayloads/UserPayloadSchema";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
@@ -44,7 +44,10 @@ export async function GET(request: NextRequest) {
         return handleError(metaData);
     }
 
-    console.log("user response", parsed.data);
+    //TODO sometime backend returns null phone, remove this when backend is fixed
+    if (data.payload && !data.payload.user.phone) {
+        data.payload.user.phone = "0000000000";
+    }
     return handleSuccess({
         data,
         status: 200,
