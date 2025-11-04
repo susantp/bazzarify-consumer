@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     if (metaData?.error !== "") {
         return handleError(metaData);
     }
-    console.log('search response: ', parsed.data.data.payload, parsed.data.data.payload?.products?.data?.at(0));
+    console.log('search response: ', parsed.data.data.payload?.products?.data?.length);
     return handleSuccess({
         data,
         status: 200,
