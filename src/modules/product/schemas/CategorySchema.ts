@@ -9,11 +9,13 @@ export const CategoryCore = z
         position: z.string().optional(),
         slug: z.string(),
         image_base_path: z.string(),
+        icon_base_path: z.string(),
+        icon_base_url: z.string(),
         image_base_url: z.string(),
         specifications: z.array(z.string()).optional(),
         attributes: z.array(z.string()).optional(),
     })
-    .strict();
+    .strip();
 
 export const CategoryWithImageSchema = CategoryCore.pick({
     uuid: true,
@@ -21,6 +23,8 @@ export const CategoryWithImageSchema = CategoryCore.pick({
     name: true,
     image_base_path: true,
     image_base_url: true,
+    icon_base_url: true,
+    icon_base_path: true,
 })
     .extend({
         images: z.array(ImageSchema).optional(),
@@ -32,4 +36,5 @@ export const CategoryRecursiveWithImageSchema =
         parent: CategoryWithImageSchema.optional(),
         children: z.array(CategoryWithImageSchema).optional(),
         images: z.array(ImageSchema).optional()
-    });
+    })
+        .strip();

@@ -15,10 +15,10 @@ export const VariantSchema = z
         image_base_url: z.string(),
         product: ProductSchema,
     })
-    .strict();
+    .strip();
 export const VariantListWithImageSchema = VariantSchema.extend({
     images: z.array(ImageSchema),
-}).strict();
+}).strip();
 export type VariantType = z.infer<typeof VariantSchema>;
 export type VariantListWithImageType = z.infer<
     typeof VariantListWithImageSchema

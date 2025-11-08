@@ -15,7 +15,7 @@ export const OrderItemSchema = z
             name: true,
             sku: true,
         })
-            .strict()
+            .strip()
             .nullable(),
         qty_ordered: z.number().int().nonnegative(),
         qty_canceled: z.number().int().nonnegative().default(0),
@@ -33,7 +33,7 @@ export const OrderItemSchema = z
         updated_at: z.iso.datetime().optional(),
         deleted_at: z.iso.datetime().nullable().optional(),
     })
-    .strict();
+    .strip();
 export const OrderSchema = z
     .object({
         uuid: z.uuid(),
@@ -60,7 +60,7 @@ export const OrderSchema = z
     .extend({
         items: z.array(OrderItemSchema),
     })
-    .strict();
+    .strip();
 
 export const OrderTotalsSchema = OrderSchema.pick({
     sub_total: true,
@@ -69,7 +69,7 @@ export const OrderTotalsSchema = OrderSchema.pick({
     shipping_total: true,
     grand_total: true,
     payment_fee: true,
-}).strict();
+}).strip();
 export const CartItem = OrderItemSchema.pick({
     line_id: true,
     uuid: true,
@@ -82,7 +82,7 @@ export const CartItem = OrderItemSchema.pick({
     row_shipping: true,
     row_total: true,
     qty_ordered: true,
-}).strict();
+}).strip();
 
 export const CartMeta = OrderSchema.pick({
     sub_total: true,
@@ -92,14 +92,14 @@ export const CartMeta = OrderSchema.pick({
     grand_total: true,
     items_count: true,
     items_quantity: true,
-}).strict();
+}).strip();
 
 export const Cart = z
     .object({
         items: z.array(CartItem),
         totals: CartMeta,
     })
-    .strict()
+    .strip()
     .nullable();
 export const CartItemToUpdateQuantitySchema = CartItem.pick({
     line_id: true,

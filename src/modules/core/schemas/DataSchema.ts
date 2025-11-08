@@ -7,4 +7,4 @@ export const DataSchema = <T extends z.ZodTypeAny>(payloadItem: T) =>
       message: z.string(),
       payload: emptyAsNull(payloadItem),
     })
-    .strict();
+    .strip();

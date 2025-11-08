@@ -15,4 +15,4 @@ export const ImageSchema = z
       })
       .optional(),
   })
-  .strict();
+  .strip();

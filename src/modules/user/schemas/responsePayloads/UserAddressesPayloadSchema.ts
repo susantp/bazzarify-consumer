@@ -5,6 +5,6 @@ export const UserAddressesPayloadSchema = z
     .object({
         addresses: z.array(UserAddress).nullable(),
     })
-    .strict();
+    .strip();
 
 export type TUserAddressesPayload = z.infer<typeof UserAddress>;

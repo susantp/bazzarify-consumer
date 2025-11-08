@@ -6,4 +6,4 @@ export const MetaDataSchema = z
     executionTime: z.number().nullable().optional(),
     errorCode: z.number().nullable(),
   })
-  .strict();
+  .strip();

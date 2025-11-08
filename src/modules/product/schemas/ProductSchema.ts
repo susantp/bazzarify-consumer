@@ -28,7 +28,7 @@ export const ProductSchema = z
         specifications: SpecificationSchema,
     }) //TODO remove this from core product schema, extend it later
     .extend(TimeStampsSchema.shape)
-    .strict();
+    .strip();
 export const OmittedProductWithImagesSchema = ProductSchema.omit({
     id: true,
     box_items: true,
