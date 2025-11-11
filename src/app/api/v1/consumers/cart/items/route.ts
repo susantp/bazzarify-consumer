@@ -5,7 +5,12 @@ import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
 import {CartResponsePayload} from "@/modules/cart/schemas/responsePayloads/CartResponsePayload";
-
+/**
+ * Get cart items
+ * @content-type application/json
+ * @params FlashDealQueryParams
+ * @response IApiResponseSchema
+ */
 export async function GET(request: NextRequest) {
     const token = request.headers.get("x-api-token");
     if (!token) {
@@ -43,6 +48,12 @@ export async function GET(request: NextRequest) {
     });
 }
 
+/**
+ * Create cart items
+ * @content-type application/json
+ * @params FlashDealQueryParams
+ * @response IApiResponseSchema
+ */
 export async function POST(request: NextRequest) {
     const token = request.headers.get("x-api-token");
     if (!token) {

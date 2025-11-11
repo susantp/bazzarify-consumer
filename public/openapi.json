@@ -423,13 +423,54 @@
     "/v1/consumers/cart/items": {
       "get": {
         "operationId": "get-v1-consumers-cart-items",
-        "summary": "",
+        "summary": "Get cart items",
         "description": "",
         "tags": [
           "V1"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
         "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },
@@ -440,13 +481,54 @@
       },
       "post": {
         "operationId": "post-v1-consumers-cart-items",
-        "summary": "",
+        "summary": "Create cart items",
         "description": "",
         "tags": [
           "V1"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
         "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
           "400": {
             "$ref": "#/components/responses/400"
           },
@@ -539,6 +621,66 @@
       "get": {
         "operationId": "get-v1-consumers-home-getHomeCategories",
         "summary": "GET Product Categories for homepage",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getHomeSliders": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getHomeSliders",
+        "summary": "GET Sliders for home page",
         "description": "",
         "tags": [
           "V1"

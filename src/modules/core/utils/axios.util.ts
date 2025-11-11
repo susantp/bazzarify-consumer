@@ -10,17 +10,19 @@ export const axiosDefaults: CreateAxiosDefaults = {
         "Authorization": 'Bearer 01994efc-0dbd-70fa-b9fa-30a2d667cfc0|KrDMnjV1Na6fp2pPF14TqzeGlfPK5C7hWLecU1l4176a46da',
     },
 };
-const baseURL =
+const consumerUrl =
     process.env.API_URL ||
     "http://local-ne.larashops.local:8081/api/v1/consumers";
 const authUrl =
     process.env.AUTH_URL || "http://local-ne.larashops.local:8081/api/v1/auth";
-
-const defaultConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL};
+const marketingUrl = process.env.MARKETING_URL || "http://local-ne.larashops.local:8081/api/v1/marketing";
+const consumerConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL: consumerUrl};
 const authConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL: authUrl};
+const marketingConfig: CreateAxiosDefaults = {...axiosDefaults, baseURL: marketingUrl};
 
-const axiosInstance: AxiosInstance = axios.create(defaultConfig);
+const consumerInstance: AxiosInstance = axios.create(consumerConfig);
 export const authAxiosInstance: AxiosInstance = axios.create(authConfig);
+export const marketingInstance: AxiosInstance = axios.create(marketingConfig);
 
 export const getHeadersWithToken = (token: string) => {
     return {...authConfig.headers, Authorization: `Bearer ${token}`};
@@ -46,13 +48,13 @@ export const createAuthAxiosInstance = (token: string): AxiosInstance => {
 
 export const createConsumerAxiosInstance = (token: string): AxiosInstance => {
     const configWithToken: CreateAxiosDefaults = {
-        ...defaultConfig,
+        ...consumerConfig,
         headers: {
-            ...defaultConfig.headers,
+            ...consumerConfig.headers,
             Authorization: `Bearer ${token}`
         }
     };
     return axios.create(configWithToken);
 }
 
-export default axiosInstance;
+export default consumerInstance;

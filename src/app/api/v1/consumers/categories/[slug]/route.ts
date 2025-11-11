@@ -1,4 +1,4 @@
-import axiosInstance from "@/modules/core/utils/axios.util";
+import consumerInstance from "@/modules/core/utils/axios.util";
 import {AxiosResponse} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
@@ -20,7 +20,7 @@ export async function GET(_req: NextRequest, {params}: IGetParams) {
     const upstreamRequestPath = `/category/${slug}`;
     let upstream: AxiosResponse<unknown>;
     try {
-        upstream = await axiosInstance.get(upstreamRequestPath);
+        upstream = await consumerInstance.get(upstreamRequestPath);
     } catch (error: unknown) {
         return handleError(error);
     }
