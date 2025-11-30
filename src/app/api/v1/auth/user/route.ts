@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
             errorCode: 401
         })
     }
-    const upstreamRequestPath = "/user";
+    const upstreamRequestPath = "/users";
     let upstream: AxiosResponse<unknown>;
     try {
         const instance = createAuthAxiosInstance(token)

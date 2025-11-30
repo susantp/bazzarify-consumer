@@ -1027,6 +1027,44 @@
           }
         }
       }
+    },
+    "/v1/consumers/vendors/{uuid}/products": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-products",
+        "summary": "Vendor Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/vendors/{uuid}/store": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-store",
+        "summary": "Vendor Store",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   }
 }
