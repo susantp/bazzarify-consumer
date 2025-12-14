@@ -31,5 +31,6 @@ export const handleError = (error: unknown) => {
 }
 
 export const handleParseError = (metaData: IApiMetaData) => {
+    console.log("handleParseError", metaData);
     return Response.json(metaData, {status: metaData.errorCode ?? 500});
 }

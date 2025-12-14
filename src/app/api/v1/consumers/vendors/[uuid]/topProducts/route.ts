@@ -16,7 +16,7 @@ export interface IGetParams {
  */
 export async function GET(req: NextRequest, {params}: IGetParams) {
     const {uuid} = await params;
-    const upstreamRequestPath = `/vendors/${uuid}/products`;
+    const upstreamRequestPath = `/vendors/${uuid}/topProducts`;
     const requestUrl = new URL(req.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;

@@ -4,19 +4,19 @@ import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {NextRequest} from "next/server";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {ProductSearchPayloadSchema} from "@/modules/product/schemas/responsePayloads/ProductSearchPayloadSchema";
+import {HomeCategoriesPayloadSchema} from "@/modules/product/schemas/responsePayloads/HomeCategoriesPayloadSchema";
 
 export interface IGetParams {
     params: Promise<{ uuid: string }>;
 }
 
 /**
- * Vendor Products
+ * Vendor Categories
  * @content-type application/json
  */
 export async function GET(req: NextRequest, {params}: IGetParams) {
     const {uuid} = await params;
-    const upstreamRequestPath = `/vendors/${uuid}/products`;
+    const upstreamRequestPath = `/vendors/${uuid}/categories`;
     const requestUrl = new URL(req.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, {params}: IGetParams) {
     } catch (error: unknown) {
         return handleError(error)
     }
-    const parsed = ApiResponseSchema(ProductSearchPayloadSchema).safeParse(
+    const parsed = ApiResponseSchema(HomeCategoriesPayloadSchema).safeParse(
         upstream.data,
     );
 
