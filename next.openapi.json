@@ -97,11 +97,14 @@
     }
   },
   "apiDir": "./src/app/api",
-  "schemaDir": "./src/modules/core/schemas",
+  "schemaDir": "./src",
   "schemaType": "zod",
+  "schemaFiles": [],
   "docsUrl": "api-docs",
   "ui": "scalar",
   "outputFile": "openapi.json",
+  "outputDir": "./public",
   "includeOpenApiRoutes": false,
+  "ignoreRoutes": [],
   "debug": false
 }

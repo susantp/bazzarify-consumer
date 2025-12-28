@@ -1,17 +1,18 @@
 import consumerInstance from "@/modules/core/utils/axios.util";
-import {AxiosResponse} from "axios";
+import {AxiosError, AxiosResponse, isAxiosError} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {NextRequest} from "next/server";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
 import {ProductSearchPayloadSchema} from "@/modules/product/schemas/responsePayloads/ProductSearchPayloadSchema";
+import {SearchMetadataPayloadSchema} from "@/modules/product/schemas/responsePayloads/SearchMetadataPayloadSchema";
 
 /**
- * Search Products
+ * Search Metadata
  * @content-type application/json
  */
 export async function GET(request: NextRequest) {
-    const upstreamRequestPath = "/search/product";
+    const upstreamRequestPath = "/search/metadata";
     const requestUrl = new URL(request.url);
     const searchParams = requestUrl.searchParams;
     let upstream: AxiosResponse<unknown>;
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
     } catch (error: unknown) {
         return handleError(error)
     }
-    const parsed = ApiResponseSchema(ProductSearchPayloadSchema).safeParse(
+    const parsed = ApiResponseSchema(SearchMetadataPayloadSchema).safeParse(
         upstream.data,
     );
 

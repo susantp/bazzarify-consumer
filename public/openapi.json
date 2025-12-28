@@ -1,0 +1,1108 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "1.0.0",
+    "description": "This is the OpenAPI specification for your project."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "200": {},
+      "307": {},
+      "NextRequest": {},
+      "FlashDealQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      },
+      "IApiResponseSchema": {},
+      "JustForYouProductsQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      },
+      "PopularProductsQueryParams": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "nullable": true,
+            "description": "Page number"
+          },
+          "limit": {
+            "type": "number",
+            "nullable": true,
+            "description": "Results per page"
+          },
+          "search": {
+            "type": "string",
+            "nullable": true,
+            "description": "Search phrase"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid request parameters"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "400"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Authentication required"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "401"
+                }
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Access denied"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "403"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Resource not found"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "404"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Resource already exists"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "409"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "An unexpected error occurred"
+                },
+                "code": {
+                  "type": "string",
+                  "example": "500"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/v1/auth/callback": {
+      "get": {
+        "operationId": "get-v1-auth-callback",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/auth/redirect": {
+      "get": {
+        "operationId": "get-v1-auth-redirect",
+        "summary": "Social login redirect",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/307"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/auth/user": {
+      "get": {
+        "operationId": "get-v1-auth-user",
+        "summary": "Get Authenticated User",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/addresses": {
+      "get": {
+        "operationId": "get-v1-consumers-addresses",
+        "summary": "List user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-v1-consumers-addresses",
+        "summary": "Save user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/categories": {
+      "get": {
+        "operationId": "get-v1-consumers-categories",
+        "summary": "GET Product Categories",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/orders": {
+      "get": {
+        "operationId": "get-v1-consumers-orders",
+        "summary": "Get Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/addresses/{uuid}": {
+      "post": {
+        "operationId": "post-v1-consumers-addresses-{uuid}",
+        "summary": "Update user addresses",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items": {
+      "get": {
+        "operationId": "get-v1-consumers-cart-items",
+        "summary": "Get cart items",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-v1-consumers-cart-items",
+        "summary": "Create cart items",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/categories/{slug}": {
+      "get": {
+        "operationId": "get-v1-consumers-categories-{slug}",
+        "summary": "Show Category",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getFlashDealProducts": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getFlashDealProducts",
+        "summary": "GET Flash Deals Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getHomeCategories": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getHomeCategories",
+        "summary": "GET Product Categories for homepage",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getHomeSliders": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getHomeSliders",
+        "summary": "GET Sliders for home page",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getJustForYouProducts": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getJustForYouProducts",
+        "summary": "GET JustForYou Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/home/getPopularProducts": {
+      "get": {
+        "operationId": "get-v1-consumers-home-getPopularProducts",
+        "summary": "GET Popular Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "number",
+              "description": "Page number"
+            },
+            "required": false,
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "description": "Results per page"
+            },
+            "required": false,
+            "description": "Results per page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string",
+              "description": "Search phrase"
+            },
+            "required": false,
+            "description": "Search phrase"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IApiResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/orders/place": {
+      "post": {
+        "operationId": "post-v1-consumers-orders-place",
+        "summary": "Place Order",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/product/{slug}": {
+      "get": {
+        "operationId": "get-v1-consumers-product-{slug}",
+        "summary": "Show Product",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/search/product": {
+      "get": {
+        "operationId": "get-v1-consumers-search-product",
+        "summary": "Search Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/core/scan/download-android-app": {
+      "get": {
+        "operationId": "get-v1-core-scan-download-android-app",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/auth/login/credentials": {
+      "post": {
+        "operationId": "post-v1-consumers-auth-login-credentials",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/auth/register/credentials": {
+      "post": {
+        "operationId": "post-v1-consumers-auth-register-credentials",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items/decrement": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-decrement",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items/increment": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-increment",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/cart/items/remove": {
+      "post": {
+        "operationId": "post-v1-consumers-cart-items-remove",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/vendors/{uuid}/categories": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-categories",
+        "summary": "Vendor Categories",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/vendors/{uuid}/products": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-products",
+        "summary": "Vendor Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/vendors/{uuid}/store": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-store",
+        "summary": "Vendor Store",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/v1/consumers/vendors/{uuid}/topProducts": {
+      "get": {
+        "operationId": "get-v1-consumers-vendors-{uuid}-topProducts",
+        "summary": "Vendor Products",
+        "description": "",
+        "tags": [
+          "V1"
+        ],
+        "parameters": [],
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  }
+}
