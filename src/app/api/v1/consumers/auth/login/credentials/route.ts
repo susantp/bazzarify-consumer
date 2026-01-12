@@ -18,8 +18,8 @@ export async function POST(request: Request) {
     const response = await authAxiosInstance.post("/login/credentials", body);
     if (response.data?.metaData?.error) {
       return Response.json(setMetaDataResponse(response.data.metaData), {
-        status: 400,
-        statusText: "Bad Request",
+        status: response.data.metaData.errorCode || 400,
+        statusText: response.data.metaData.error || "Bad Request",
       });
     }
     return Response.json(

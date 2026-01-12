@@ -4,7 +4,6 @@ import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {NextRequest} from "next/server";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {ProductSearchPayloadSchema} from "@/modules/product/schemas/responsePayloads/ProductSearchPayloadSchema";
 import {SearchMetadataPayloadSchema} from "@/modules/product/schemas/responsePayloads/SearchMetadataPayloadSchema";
 
 /**
