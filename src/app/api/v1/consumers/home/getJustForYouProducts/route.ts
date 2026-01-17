@@ -1,7 +1,7 @@
 import consumerInstance from "@/modules/core/utils/axios.util";
-import { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 import { z } from "zod";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";
 import {
     handleError, handleParseError,
@@ -11,7 +11,7 @@ import { formattedIssues } from "@/modules/core/utils/zod.util";
 import { JustForYouProductsPayloadSchema } from "@/modules/product/schemas/responsePayloads/JustForYouProductsPayloadSchema";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JustForYouProductsQueryParams = z.object({
+const _JustForYouProductsQueryParams = z.object({
   perPage: z.number().optional().describe("Page number"),
   limit: z.number().optional().describe("Results per page"),
   search: z.string().optional().describe("Search phrase"),

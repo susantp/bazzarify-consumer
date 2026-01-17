@@ -1,5 +1,5 @@
-import {z} from "zod";
 import {StoreSchema} from "@/modules/vendor/domain/schemas/store";
+import {z} from "zod";
 
 export const VendorStorePayloadSchema = z.object({
     store: StoreSchema.nullable(),

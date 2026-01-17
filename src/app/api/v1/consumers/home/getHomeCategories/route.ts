@@ -1,10 +1,11 @@
-import consumerInstance from "@/modules/core/utils/axios.util";
-import {AxiosResponse} from "axios";
-import {NextRequest} from "next/server";
+// biome-ignore assist/source/organizeImports: <explanation>
+import type {AxiosResponse} from "axios";
+import type {NextRequest} from "next/server";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
 import {HomeCategoriesPayloadSchema} from "@/modules/product/schemas/responsePayloads/HomeCategoriesPayloadSchema";
+import consumerInstance from "@/modules/core/utils/axios.util";
 
 /**
  * GET Product Categories for homepage
