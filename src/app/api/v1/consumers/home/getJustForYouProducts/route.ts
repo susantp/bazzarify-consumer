@@ -1,5 +1,5 @@
 import consumerInstance from "@/modules/core/utils/axios.util";
-import { AxiosError, AxiosResponse, isAxiosError } from "axios";
+import { AxiosResponse } from "axios";
 import { z } from "zod";
 import { NextRequest } from "next/server";
 import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";

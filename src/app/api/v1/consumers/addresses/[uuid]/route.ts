@@ -1,6 +1,6 @@
 import {NextRequest} from "next/server";
 import {handleError, handleParseError, handleSuccess} from "@/modules/core/utils/jsonResponse.utils";
-import {AxiosError, AxiosResponse, isAxiosError} from "axios";
+import {AxiosResponse} from "axios";
 import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {UserAddressesPayloadSchema} from "@/modules/user/schemas/responsePayloads/UserAddressesPayloadSchema";

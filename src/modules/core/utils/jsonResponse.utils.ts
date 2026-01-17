@@ -10,7 +10,7 @@ export const handleSuccess = <T>({data, status = 200}: ISuccessResponse<T>) =>
     Response.json(data, {status});
 
 export const handleError = (error: unknown) => {
-    if ("error" in (error as any) && "errorCode" in (error as any)) {
+    if ("error" in (error as never) && "errorCode" in (error as never)) {
         const err = error as IApiMetaData;
         return Response.json({error: err.error, errorCode: err.errorCode}, {status: err.errorCode ?? 500});
     }

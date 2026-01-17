@@ -3,7 +3,6 @@ import {
   setMetaDataResponse,
 } from "@/modules/core/data/apiResponse";
 import { authAxiosInstance } from "@/modules/core/utils/axios.util";
-import { AxiosError } from "axios";
 import {handleError} from "@/modules/core/utils/jsonResponse.utils";
 
 export async function POST(request: Request) {

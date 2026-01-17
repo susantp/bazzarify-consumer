@@ -7,7 +7,10 @@
     "debug": "NODE_OPTIONS='--inspect' bun run --bun next dev --turbopack",
     "build": "bun run --bun next build",
     "start": "bun run --bun next start",
-    "lint": "eslint ."
+    "lint": "bun run --bun eslint .",
+    "lint:fix": "bun run --bun eslint . --fix",
+    "format:check": "bunx --bun biome format --check ./src",
+    "format:fix": "bunx --bun biome format --write ./src"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
