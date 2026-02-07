@@ -1,15 +1,14 @@
 import {AxiosResponse} from "axios";
-import {handleError, handleParseError, handleSuccess} from "@/modules/core/utils/jsonResponse.utils";
-import {type NextRequest} from "next/server";
+import {handleError, handleParseError} from "@/modules/core/utils/jsonResponse.utils";
 import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
-import {z} from "zod";
+import {OrderStatuses} from "@/modules/order/schemas/responsePayloads/GetOrdersStatusesResponsePayload";
 
 /**
  * Get Available Order Statuses
  * @content-type application/json
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
     // const token = request.headers.get("x-api-token");
     // if (!token) {
     //     return handleError({
@@ -26,10 +25,7 @@ export async function GET(request: NextRequest) {
         return handleError(error)
     }
 
-    // const parsed = ApiResponseSchema(GetOrdersStatusesResponsePayload).safeParse(
-    //     upstream.data,
-    // );
-    const parsed = z.array(z.string()).safeParse(upstream.data)
+    const parsed = OrderStatuses.safeParse(upstream.data)
     if (!parsed.success) {
         return handleParseError({
             error: formattedIssues(parsed.error.issues),
@@ -48,5 +44,5 @@ export async function GET(request: NextRequest) {
     //     status: 200,
     // });
 
-    return Response.json(parsed.data)
+    return Response.json(parsed.data.map((status) => status.code))
 }
