@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
             });
         }
         const {token} = response.data.data.payload;
-        const appUrl = new URL("bazzarify://guest/login");
+        const appUrl = new URL("bazzarify://oauth-native-callback");
         appUrl.searchParams.set("token", token);
         appUrl.searchParams.set("success", "true");
         return NextResponse.redirect(appUrl);

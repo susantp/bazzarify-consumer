@@ -11,7 +11,7 @@ import {handleError} from "@/modules/core/utils/jsonResponse.utils";
 export async function GET(request: NextRequest) {
     const provider = request.nextUrl.searchParams.get("provider");
 
-    const appUrl = new URL("bazzarify://guest/login");
+    const appUrl = new URL("bazzarify://oauth-native-callback");
     if (!provider) {
         return NextResponse.redirect(appUrl);
     }
