@@ -7,7 +7,6 @@ export const axiosDefaults: CreateAxiosDefaults = {
         "User-Agent": "BazzarifyConsumer",
         "Content-Type": "application/json",
         "X-APP-Key": process.env.X_APP_KEY || "",
-        "Authorization": 'Bearer 01994efc-0dbd-70fa-b9fa-30a2d667cfc0|KrDMnjV1Na6fp2pPF14TqzeGlfPK5C7hWLecU1l4176a46da',
     },
 };
 const consumerUrl =
