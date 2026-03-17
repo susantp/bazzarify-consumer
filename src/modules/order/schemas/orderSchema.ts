@@ -27,6 +27,11 @@ export const OrderItemSchema = z
         row_tax: z.float64().nonnegative().default(0),
         row_shipping: z.float64().nonnegative().default(0),
         row_total: z.float64().nonnegative().nonoptional(),
+        inventory: z.object({
+            available_to_sell: z.number().int().nonnegative(),
+            max_quantity: z.number().int().nonnegative(),
+            can_increment: z.boolean(),
+        }).nullable().optional(),
 
         meta: z.record(z.any(), z.string()).nullable(), // JSON column
         created_at: z.string().optional(),
@@ -76,6 +81,7 @@ export const CartItem = OrderItemSchema.pick({
     name: true,
     sku: true,
     variant_attrs: true,
+    inventory: true,
     unit_price: true,
     row_discount: true,
     row_tax: true,
