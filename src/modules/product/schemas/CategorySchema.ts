@@ -33,7 +33,7 @@ export const CategoryWithImageSchema = CategoryCore.pick({
 
 export const CategoryRecursiveWithImageSchema =
     CategoryWithImageSchema.extend({
-        parent: CategoryWithImageSchema.optional(),
+        parent: CategoryWithImageSchema.nullable().optional(),
         children: z.array(CategoryWithImageSchema).optional(),
         images: z.array(ImageSchema).optional()
     })
