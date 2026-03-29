@@ -7,7 +7,7 @@ export const ProductSchema = z
     .object({
         type: z.enum(["retail", "wholesale"]),
         uuid: z.uuid(),
-        user_uuid: z.uuid().nullable(),
+        user_uuid: z.uuid().nullable().optional(),
         image_base_path: z.string(),
         image_base_url: z.string(),
         id: z.number().nullable(),
