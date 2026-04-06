@@ -1,25 +1,27 @@
-import {AxiosResponse} from "axios";
+import type {AxiosResponse} from "axios";
 import {handleError, handleParseError} from "@/modules/core/utils/jsonResponse.utils";
 import {createConsumerAxiosInstance} from "@/modules/core/utils/axios.util";
 import {formattedIssues} from "@/modules/core/utils/zod.util";
 import {OrderStatuses} from "@/modules/order/schemas/responsePayloads/GetOrdersStatusesResponsePayload";
+import type {NextRequest} from "next/server";
 
 /**
  * Get Available Order Statuses
  * @content-type application/json
  */
-export async function GET() {
-    // const token = request.headers.get("x-api-token");
-    // if (!token) {
-    //     return handleError({
-    //         error: "Unauthorized",
-    //         errorCode: 401
-    //     })
-    // }
+export async function GET(request: NextRequest) {
+    const token = request.headers.get("x-api-token");
+    if (!token) {
+        return handleError({
+            error: "Unauthorized",
+            errorCode: 401,
+        })
+    }
+
     const upstreamRequestPath = "/orders/statuses";
     let upstream: AxiosResponse<unknown>;
     try {
-        const instance = createConsumerAxiosInstance("token")
+        const instance = createConsumerAxiosInstance(token)
         upstream = await instance.get(upstreamRequestPath);
     } catch (error: unknown) {
         return handleError(error)
@@ -44,5 +46,5 @@ export async function GET() {
     //     status: 200,
     // });
 
-    return Response.json(parsed.data.map((status) => status.code))
+    return Response.json(parsed.data)
 }

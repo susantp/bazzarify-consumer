@@ -3,9 +3,9 @@ import {SimplePaginatedSchema} from "@/modules/product/schemas/SimplePaginated";
 
 export const OrderStatusSchema = z
     .object({
-        uuid: z.uuid(),
         code: z.string(),
         label: z.string(),
+        statuses: z.array(z.string()).optional(),
     })
     .strip();
 
