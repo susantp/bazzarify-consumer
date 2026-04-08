@@ -11,6 +11,7 @@ export const VariantSchema = z
         price: z.number(),
         stock: z.number().int(),
         available: z.boolean(),
+        available_to_sell: z.number().int().nonnegative(),
         image_base_path: z.string(),
         image_base_url: z.string(),
         product: ProductSchema,
