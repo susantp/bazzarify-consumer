@@ -1,5 +1,5 @@
 export interface ISpecification {
-  uuid: string;
-  key: string;
-  type: string;
+	uuid: string;
+	key: string;
+	type: string;
 }

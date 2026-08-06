@@ -3,5 +3,5 @@
 export const instant = false;
 
 export default function Page() {
-  return <h1>User</h1>;
+	return <h1>User</h1>;
 }

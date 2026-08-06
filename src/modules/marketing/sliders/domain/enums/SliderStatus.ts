@@ -1,4 +1,4 @@
 export enum SliderStatus {
-  ACTIVE = "active",
-  INACTIVE = "inactive",
+	ACTIVE = "active",
+	INACTIVE = "inactive",
 }

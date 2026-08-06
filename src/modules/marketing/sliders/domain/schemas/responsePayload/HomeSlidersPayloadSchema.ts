@@ -1,9 +1,9 @@
-import {z} from "zod";
-import {SimplePaginatedSchema} from "@/modules/product/schemas/SimplePaginated";
-import {SliderWithImagesSchema} from "@/modules/marketing/sliders/domain/schemas/SliderSchema";
+import { z } from "zod";
+import { SimplePaginatedSchema } from "@/modules/product/schemas/SimplePaginated";
+import { SliderWithImagesSchema } from "@/modules/marketing/sliders/domain/schemas/SliderSchema";
 
 export const HomeSlidersPayloadSchema = z
-    .object({
-        sliders: SimplePaginatedSchema(SliderWithImagesSchema),
-    })
-    .strip();
+	.object({
+		sliders: SimplePaginatedSchema(SliderWithImagesSchema),
+	})
+	.strip();

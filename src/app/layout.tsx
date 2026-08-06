@@ -8,29 +8,29 @@ import type React from "react";
 export const instant = false;
 
 const poppins = Poppins({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  display: "swap",
-  subsets: ["latin", "latin-ext"],
+	weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+	display: "swap",
+	subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
-  title: "Welcome to Bazzarify",
-  description: "we are under construction now.",
+	title: "Welcome to Bazzarify",
+	description: "we are under construction now.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${poppins.className} antialiased`}
-        suppressHydrationWarning={true}
-      >
-        <main>{children}</main>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body
+				className={`${poppins.className} antialiased`}
+				suppressHydrationWarning={true}
+			>
+				<main>{children}</main>
+			</body>
+		</html>
+	);
 }

@@ -4,17 +4,18 @@ import { z } from "zod";
 import type { NextRequest } from "next/server";
 import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";
 import {
-    handleError, handleParseError,
-    handleSuccess,
+	handleError,
+	handleParseError,
+	handleSuccess,
 } from "@/modules/core/utils/jsonResponse.utils";
 import { formattedIssues } from "@/modules/core/utils/zod.util";
 import { JustForYouProductsPayloadSchema } from "@/modules/product/schemas/responsePayloads/JustForYouProductsPayloadSchema";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _JustForYouProductsQueryParams = z.object({
-  perPage: z.number().optional().describe("Page number"),
-  limit: z.number().optional().describe("Results per page"),
-  search: z.string().optional().describe("Search phrase"),
+	perPage: z.number().optional().describe("Page number"),
+	limit: z.number().optional().describe("Results per page"),
+	search: z.string().optional().describe("Search phrase"),
 });
 /**
  * GET JustForYou Products
@@ -23,35 +24,35 @@ const _JustForYouProductsQueryParams = z.object({
  * @response IApiResponseSchema
  */
 export async function GET(request: NextRequest) {
-  const upstreamRequestPath = "/home/getJustForYouProducts";
-  const requestUrl = new URL(request.url);
-  const searchParams = requestUrl.searchParams;
-  let upstream: AxiosResponse<unknown>;
-  try {
-    upstream = await consumerInstance.get(upstreamRequestPath, {
-      params: Object.fromEntries(searchParams),
-    });
-  } catch (error: unknown) {
-      return handleError(error)
-  }
+	const upstreamRequestPath = "/home/getJustForYouProducts";
+	const requestUrl = new URL(request.url);
+	const searchParams = requestUrl.searchParams;
+	let upstream: AxiosResponse<unknown>;
+	try {
+		upstream = await consumerInstance.get(upstreamRequestPath, {
+			params: Object.fromEntries(searchParams),
+		});
+	} catch (error: unknown) {
+		return handleError(error);
+	}
 
-  const parsed = ApiResponseSchema(JustForYouProductsPayloadSchema).safeParse(
-    upstream.data,
-  );
+	const parsed = ApiResponseSchema(JustForYouProductsPayloadSchema).safeParse(
+		upstream.data,
+	);
 
-    if (!parsed.success) {
-        return handleParseError({
-            error: formattedIssues(parsed.error.issues),
-            errorCode: 502,
-        });
-    }
+	if (!parsed.success) {
+		return handleParseError({
+			error: formattedIssues(parsed.error.issues),
+			errorCode: 502,
+		});
+	}
 
-  const { data, metaData } = parsed.data;
-  if (metaData?.error !== "") {
-    return handleError(metaData);
-  }
-  return handleSuccess({
-    data,
-    status: 200,
-  });
+	const { data, metaData } = parsed.data;
+	if (metaData?.error !== "") {
+		return handleError(metaData);
+	}
+	return handleSuccess({
+		data,
+		status: 200,
+	});
 }

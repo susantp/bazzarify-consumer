@@ -1,4 +1,4 @@
 export interface IImage {
-  uuid: string;
-  file: string;
+	uuid: string;
+	file: string;
 }

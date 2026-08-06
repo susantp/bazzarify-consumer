@@ -1,10 +1,14 @@
-import {NextRequest} from "next/server";
-import {createAuthAxiosInstance} from "@/modules/core/utils/axios.util";
-import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
-import {AxiosResponse} from "axios";
-import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
-import {UserPayloadSchema} from "@/modules/auth/schemas/responsePayloads/UserPayloadSchema";
-import {formattedIssues} from "@/modules/core/utils/zod.util";
+import { NextRequest } from "next/server";
+import { createAuthAxiosInstance } from "@/modules/core/utils/axios.util";
+import {
+	handleError,
+	handleParseError,
+	handleSuccess,
+} from "@/modules/core/utils/jsonResponse.utils";
+import { AxiosResponse } from "axios";
+import { ApiResponseSchema } from "@/modules/core/schemas/ApiResponseSchema";
+import { UserPayloadSchema } from "@/modules/auth/schemas/responsePayloads/UserPayloadSchema";
+import { formattedIssues } from "@/modules/core/utils/zod.util";
 
 /**
  * Get Authenticated User
@@ -13,47 +17,44 @@ import {formattedIssues} from "@/modules/core/utils/zod.util";
  * @response 200
  */
 export async function GET(request: NextRequest) {
-    const token = request.headers.get("x-api-token");
-    if (!token) {
-        return handleError({
-            error: "Unauthorized",
-            errorCode: 401
-        })
-    }
-    const upstreamRequestPath = "/users";
-    let upstream: AxiosResponse<unknown>;
-    try {
-        const instance = createAuthAxiosInstance(token)
-        upstream = await instance.get(upstreamRequestPath);
-    } catch (error: unknown) {
-        return handleError(error)
-    }
-    const parsed = ApiResponseSchema(UserPayloadSchema).safeParse(
-        upstream.data,
-    );
+	const token = request.headers.get("x-api-token");
+	if (!token) {
+		return handleError({
+			error: "Unauthorized",
+			errorCode: 401,
+		});
+	}
+	const upstreamRequestPath = "/users";
+	let upstream: AxiosResponse<unknown>;
+	try {
+		const instance = createAuthAxiosInstance(token);
+		upstream = await instance.get(upstreamRequestPath);
+	} catch (error: unknown) {
+		return handleError(error);
+	}
+	const parsed = ApiResponseSchema(UserPayloadSchema).safeParse(upstream.data);
 
-    if (!parsed.success) {
-        return handleParseError({
-            error: formattedIssues(parsed.error.issues),
-            errorCode: 502,
-        });
-    }
+	if (!parsed.success) {
+		return handleParseError({
+			error: formattedIssues(parsed.error.issues),
+			errorCode: 502,
+		});
+	}
 
-    const {data, metaData} = parsed.data;
-    if (metaData?.error !== "") {
-        return handleError(metaData);
-    }
+	const { data, metaData } = parsed.data;
+	if (metaData?.error !== "") {
+		return handleError(metaData);
+	}
 
-    //TODO sometime backend returns null phone, remove this when backend is fixed
-    if (data.payload && !data.payload.user.phone) {
-        data.payload.user.phone = "0000000000";
-    }
-    return handleSuccess({
-        data,
-        status: 200,
-    });
+	//TODO sometime backend returns null phone, remove this when backend is fixed
+	if (data.payload && !data.payload.user.phone) {
+		data.payload.user.phone = "0000000000";
+	}
+	return handleSuccess({
+		data,
+		status: 200,
+	});
 }
-
 
 /**
  * follow these Principles:

@@ -1,10 +1,10 @@
-import {z} from "zod";
-import {UserAddress} from "@/modules/user/schemas/UserSchema";
+import { z } from "zod";
+import { UserAddress } from "@/modules/user/schemas/UserSchema";
 
 export const UserAddressesPayloadSchema = z
-    .object({
-        addresses: z.array(UserAddress).nullable(),
-    })
-    .strip();
+	.object({
+		addresses: z.array(UserAddress).nullable(),
+	})
+	.strip();
 
 export type TUserAddressesPayload = z.infer<typeof UserAddress>;
