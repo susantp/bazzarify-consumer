@@ -1,34 +1,35 @@
-import {
-  setDataResponse,
-  setMetaDataResponse,
-} from "@/modules/core/data/apiResponse";
 import { authAxiosInstance } from "@/modules/core/utils/axios.util";
-import { AxiosError } from "axios";
-import {handleError} from "@/modules/core/utils/jsonResponse.utils";
+import {
+  createConsumerProxyFailureResponse,
+  createConsumerProxySuccessResponse,
+  normalizeConsumerProxyError,
+} from "@/modules/core/utils/jsonResponse.utils";
 
 export async function POST(request: Request) {
   const body = await request.json();
   if (!body) {
-    return Response.json(
-      setMetaDataResponse({ error: "No data provided", errorCode: 400 }),
-      { status: 400, statusText: "Bad Request" },
-    );
+    return createConsumerProxyFailureResponse({
+      error: "No data provided",
+      errorCode: 400,
+    });
   }
   try {
     const response = await authAxiosInstance.post("/login/credentials", body);
     if (response.data?.metaData?.error) {
-      return Response.json(setMetaDataResponse(response.data.metaData), {
-        status: 400,
-        statusText: "Bad Request",
-      });
+      return createConsumerProxyFailureResponse(
+        normalizeConsumerProxyError(response.data.metaData),
+      );
     }
-    return Response.json(
-      setDataResponse({
+    return createConsumerProxySuccessResponse({
+      data: {
         message: "success",
         payload: response.data.data.payload,
-      }),
-    );
+      },
+      status: 200,
+    });
   } catch (error: unknown) {
-      return handleError(error)
+    return createConsumerProxyFailureResponse(
+      normalizeConsumerProxyError(error),
+    );
   }
 }
