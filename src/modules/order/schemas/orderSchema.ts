@@ -31,8 +31,6 @@ export const OrderItemSchema = z
       .strip()
       .nullable(),
     qty_ordered: z.number().int().nonnegative(),
-    qty_canceled: z.number().int().nonnegative().default(0),
-    qty_shipped: z.number().int().nonnegative().default(0),
     qty_refunded: z.number().int().nonnegative().default(0),
     refund_cases: z.array(OrderItemRefundCaseSchema).default([]),
 
