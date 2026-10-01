@@ -62,7 +62,7 @@ export const OrderSchema = z
     grand_total: z.float64().nonnegative().default(0),
     payment_status: z.string().max(32),
     payment_fee: z.float64().nonnegative().default(0),
-    placed_at: z.iso.datetime(),
+    placed_at: z.iso.datetime({ offset: true }),
     cancelled_at: z.iso.datetime().nullable().optional(),
     completed_at: z.iso.datetime().nullable().optional(),
     created_at: z.iso.datetime().optional().optional(),
@@ -102,6 +102,7 @@ export const CartMeta = OrderSchema.pick({
   tax_total: true,
   shipping_total: true,
   grand_total: true,
+  payment_fee: true,
   items_count: true,
   items_quantity: true,
 }).strip();
@@ -120,7 +121,7 @@ export const CartItemToUpdateQuantitySchema = CartItem.pick({
   qty_ordered: true,
 });
 export const GetOrder = OrderSchema.pick({
-  // uuid: true,
+  uuid: true,
   order_number: true,
   status: true,
   placed_at: true,
