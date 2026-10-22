@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  allowedDevOrigins: ["10.0.2.2"],
+  allowedDevOrigins: ["*.bazzarify.local", "*.bazzarify.com", "*.larashops.local"],
     typedRoutes: true,
 };
 

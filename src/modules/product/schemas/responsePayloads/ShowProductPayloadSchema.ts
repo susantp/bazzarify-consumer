@@ -8,4 +8,4 @@ export const ShowProductPayloadSchema = z
             code: z.string(),
         }),
     })
-    .strict();
+    .strip();

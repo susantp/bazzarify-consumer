@@ -1,5 +1,5 @@
 import axiosInstance from "@/modules/core/utils/axios.util";
-import {AxiosError, AxiosResponse, isAxiosError} from "axios";
+import {AxiosResponse} from "axios";
 import {ApiResponseSchema} from "@/modules/core/schemas/ApiResponseSchema";
 import {handleError, handleParseError, handleSuccess,} from "@/modules/core/utils/jsonResponse.utils";
 import {NextRequest} from "next/server";

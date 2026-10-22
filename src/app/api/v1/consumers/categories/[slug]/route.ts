@@ -28,6 +28,7 @@ export async function GET(_req: NextRequest, {params}: IGetParams) {
         upstream.data,
     );
     if (!parsed.success) {
+        console.log('parsing error: ', parsed.error.issues);
         return handleParseError({
             error: formattedIssues(parsed.error.issues),
             errorCode: 502,

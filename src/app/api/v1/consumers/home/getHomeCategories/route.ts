@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
         upstream.data,
     );
     if (!parsed.success) {
+        console.log('parse error: ', parsed.error.issues);
         return handleParseError({
             error: formattedIssues(parsed.error.issues),
             errorCode: 502,

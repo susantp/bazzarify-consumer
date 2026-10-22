@@ -8,4 +8,4 @@ export const ApiResponseSchema = <T extends z.ZodTypeAny>(payloadItem: T) =>
       data: DataSchema<T>(payloadItem),
       metaData: MetaDataSchema,
     })
-    .strict();
+    .strip();

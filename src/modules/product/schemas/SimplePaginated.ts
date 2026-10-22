@@ -18,4 +18,4 @@ export const SimplePaginatedSchema = <T extends z.ZodTypeAny>(item: T) =>
       prev_page_url: z.string().nullable(),
       to: z.union([z.number().int().nonnegative(), z.string()]).nullable(),
     })
-    .strict();
+    .strip();
